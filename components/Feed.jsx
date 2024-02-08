@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+
 import PromptCard from "./PromptCard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
@@ -20,7 +21,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
 
-  //search states
+  // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
@@ -35,9 +36,9 @@ const Feed = () => {
   useEffect(() => {
     fetchPosts();
   }, []);
-  
+
   const filterPrompts = (searchtext) => {
-    const regex = new RegExp(searchtext, "i");
+    const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
     return allPosts.filter(
       (item) =>
         regex.test(item.creator.username) ||
@@ -50,6 +51,7 @@ const Feed = () => {
     clearTimeout(searchTimeout);
     setSearchText(e.target.value);
 
+    // debounce method
     setSearchTimeout(
       setTimeout(() => {
         const searchResult = filterPrompts(e.target.value);
@@ -77,6 +79,8 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
+
+      {/* All Prompts */}
       {searchText ? (
         <PromptCardList
           data={searchedResults}
