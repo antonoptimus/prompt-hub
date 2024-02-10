@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { motion } from "framer-motion";
+import { FaGithub } from "react-icons/fa6";
 
 const Nav = () => {
   const { data: session } = useSession();
@@ -19,7 +21,11 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className="flex-between w-full mb-16 pt-3">
+    <motion.nav
+      className="flex-between w-full mb-16 pt-3"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <Link href="/" className="flex gap-2 flex-center">
         <Image
           src="/assets/images/logo.svg"
@@ -28,7 +34,16 @@ const Nav = () => {
           height={30}
           className="object-contain"
         />
-        <p className="logo_text">Promptopia</p>
+        <p className="logo_text">PromptHub</p>
+      </Link>
+
+      <Link
+        href="https://github.com/antonoptimus/share_prompts"
+        className="flex flex-center text-[2rem] focus:scale-[1.15] hover:scale-[1.15]  active:scale-105 cursor-pointer transition-all" 
+        target="_blank"
+        rel="noopener"
+      >
+        <FaGithub />
       </Link>
 
       {/* Desktop Navigation */}
@@ -132,7 +147,7 @@ const Nav = () => {
           </>
         )}
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
